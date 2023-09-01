@@ -13,29 +13,29 @@ userRoute.post("/login", async (req, res) => {
         const user = await UserModel.find({ "email": email });
         console.log(user);
         if (user.length == 0) {
-            res.send("Please register first!");
+            res.status(401).send("Please register first!");
         }
         else {
             bcrypt.compare(password, user[0].password, function (err, result) {
                 if (err) {
                     console.log(err);
-                    res.send("Someting went wrong");
+                    res.status(500).send("Something went wrong");
                 }
                 else {
                     if (result == true) {
                         const payload = { userId: user[0]._id, email: user[0].email };
                         const token = jwt.sign(payload, process.env.privatekey);
-                        res.send({ "msg": "Login Successfull", "token": token });
+                        res.status(200).send({ "msg": "Login Successful", "token": token });
                     }
                     else {
-                        res.send("Wrong Credentials");
+                        res.status(401).send("Wrong Credentials");
                     }
                 }
             });
         }
     }
     catch (err) {
-        res.send(err);
+        res.status(500).send(err.message);
     }
 })
 
@@ -48,15 +48,15 @@ userRoute.post("/register", async (req, res) => {
         const data = await UserModel.find({ "email": email });
         console.log(data);
         if (data.length != 0) {
-            res.send("User is already registered");
+            res.status(400).send("User is already registered");
         }
         else {
             await UserModel.insertMany(req.body);
-            res.send("Registration is completed")
+            res.status(201).send("Registration is completed");
         }
     }
     catch (err) {
-        res.send(err);
+        res.status(500).send(err.message);
     }
 })
 

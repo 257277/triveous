@@ -3,7 +3,9 @@ require("dotenv").config();
 const { connection } = require("./config/db");
 const { userRoute } = require("./config/routes/userRoutes");
 const { cateRoute } = require("./config/routes/categoryRoutes");
-const { productRoute } = require("./config/routes/productRoutes")
+const { productRoute } = require("./config/routes/productRoutes");
+const { cartRoute } = require("./config/routes/cartRoutes");
+const { orderRoute } = require("./config/routes/orderRoutes")
 const app = express();
 
 app.use(express.json())
@@ -11,6 +13,8 @@ app.use(express.json())
 app.use("/user", userRoute);
 app.use("/category", cateRoute);
 app.use("/product", productRoute)
+app.use("/cart", cartRoute)
+app.use("/order", orderRoute);
 
 app.listen(process.env.port, async () => {
     try {

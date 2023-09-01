@@ -9,15 +9,15 @@ cateRoute.post("/listing", async (req, res) => {
         const { name } = req.body;
         let cat = await CategoryModel.find(req.body);
         if (cat.length != 0) {
-            res.send("Already added");
+            res.status(400).send("Already added");
         }
         else {
             await CategoryModel.insertMany(req.body);
-            res.send("Category added successfully");
+            res.status(201).send("Category added successfully");
         }
     }
     catch (err) {
-        console.log(err);
+        res.status(500).send("Internal Server Error");
     }
 })
 

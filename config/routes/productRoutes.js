@@ -9,15 +9,15 @@ productRoute.post("/listing", async (req, res) => {
         let { title, price, description, availability, categoryID } = req.body;
         let product = await ProductModel.find(req.body);
         if (product.length) {
-            res.send("Product is already added!");
+            res.status(400).send("Product is already added!");
         }
         else {
             await ProductModel.insertMany(req.body);
-            res.send("Product added successfully");
+            res.status(201).send("Product added successfully");
         }
     }
     catch (err) {
-        console.log(err);
+        res.status(500).send("Internal Server Error");
     }
 })
 
@@ -25,10 +25,14 @@ productRoute.get("/details/:id", async (req, res) => {
     let id = req.params.id;
     try {
         let data = await ProductModel.find({ "_id": id });
-        res.send(data);
+        if (data.length) {
+            res.status(200).send(data);
+        } else {
+            res.status(404).send("Product not found");
+        }
     }
     catch (err) {
-        res.send(err);
+        res.status(500).send("Internal Server Error");
     }
 })
 

@@ -4,7 +4,9 @@ const cartSchema = mongoose.Schema({
     "ProductID": { type: Types.ObjectId, ref: 'Product' },
     "quantity": Number,
     "userID": { type: Types.ObjectId, ref: 'User' },
-    "Date": Date
+    "Date": Date,
+    "OrderPlacedStatus": { type: Boolean, default: false }
+
 })
 const CartModel = mongoose.model("Cart", cartSchema);
 
