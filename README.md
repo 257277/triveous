@@ -1,4 +1,4 @@
-# triveous assignment readme
+# Triveous assignment readme
 
 ## Table of Contents
 
