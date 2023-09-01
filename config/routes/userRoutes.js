@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const userRoute = express.Router();
-
+//login route
 userRoute.post("/login", async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -40,8 +40,9 @@ userRoute.post("/login", async (req, res) => {
 })
 
 
-
+//hashing middleware
 userRoute.use(hashing)
+//register route
 userRoute.post("/register", async (req, res) => {
     try {
         const { name, email, password } = req.body;

@@ -6,6 +6,10 @@ const { UserModel } = require("../model/userModel")
 const authen = async (req, res, next) => {
     const token = req.headers.authorization;
     try {
+        if (!token) {
+            return res.status(401).json({ message: "Unauthorized: No token provided" });
+        }
+
         let decoded = jwt.verify(token, process.env.privatekey);
 
         let userid = decoded.userId;
@@ -13,7 +17,7 @@ const authen = async (req, res, next) => {
         const u = await UserModel.find({ "_id": userid });
 
         if (u.length == 0) {
-            res.send("You are not authotrized");
+            return res.status(401).json({ message: "You are not authorized" });
         }
 
 
@@ -21,7 +25,9 @@ const authen = async (req, res, next) => {
         next();
     }
     catch (err) {
-        res.send(err);
+        console.error(err);
+        res.status(500).json({ message: 'Internal server error' });
+
     }
 }
 module.exports = {

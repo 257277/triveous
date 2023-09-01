@@ -3,7 +3,7 @@ const express = require("express");
 const { ProductModel } = require("../model/productModel");
 const { CategoryModel } = require("../model/categoryModel");
 const productRoute = express.Router();
-
+//adding new product
 productRoute.post("/listing", async (req, res) => {
     try {
         let { title, price, description, availability, categoryID } = req.body;
@@ -20,7 +20,7 @@ productRoute.post("/listing", async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 })
-
+//getting detail of product with respect to given id
 productRoute.get("/details/:id", async (req, res) => {
     let id = req.params.id;
     try {

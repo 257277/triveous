@@ -7,7 +7,7 @@ const orderRoute = express.Router();
 
 
 orderRoute.use(authen);
-
+// place order
 orderRoute.post("/placeorder", async (req, res) => {
     try {
         let cartid = await CartModel.find({ userID: req.body.userID, OrderPlacedStatus: false });
@@ -26,7 +26,7 @@ orderRoute.post("/placeorder", async (req, res) => {
     }
 });
 
-
+// getting order history of particular user
 orderRoute.get("/orderhistory", async (req, res) => {
     try {
         let data = await OrderModel.find({ userID: req.body.userID });
@@ -36,7 +36,7 @@ orderRoute.get("/orderhistory", async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 })
-
+// getting order detail of given id
 orderRoute.get("/orderdetail/:id", async (req, res) => {
     let id = req.params.id;
     try {

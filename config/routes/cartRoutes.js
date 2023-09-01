@@ -5,6 +5,7 @@ const { authen } = require("../middleware/jwt")
 const cartRoute = express.Router();
 
 cartRoute.use(authen);
+//add item to cart
 cartRoute.post("/additem", async (req, res) => {
     try {
         req.body.Date = new Date().toISOString().split("T")[0];
@@ -21,7 +22,7 @@ cartRoute.post("/additem", async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 })
-
+//getting cart item
 cartRoute.get("/cartItem", async (req, res) => {
     try {
         let data = await CartModel.find({ "OrderPlacedStatus": false });
@@ -31,7 +32,7 @@ cartRoute.get("/cartItem", async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 })
-
+// updating cart item quantity
 cartRoute.patch("/updateQuantity/:id", async (req, res) => {
     try {
         let id = req.params.id;
@@ -45,7 +46,7 @@ cartRoute.patch("/updateQuantity/:id", async (req, res) => {
     }
 })
 
-
+//deleting cart item
 cartRoute.delete("/deleteItem/:id", async (req, res) => {
     try {
         let id = req.params.id;

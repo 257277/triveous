@@ -3,7 +3,7 @@ const express = require("express");
 const { CategoryModel } = require("../model/categoryModel");
 
 const cateRoute = express.Router();
-
+//category adding route
 cateRoute.post("/listing", async (req, res) => {
     try {
         const { name } = req.body;
