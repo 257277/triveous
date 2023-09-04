@@ -41,12 +41,14 @@ This middleware is used to secure routes that require user authentication.
 
 ## Routes: Cart Management (`cartRoute.js`)
 
-The `cartRoute.js` file defines routes related to managing a shopping cart. These routes include:
+The `cartRoute.js` file defines routes related to managing a shopping cart.
+NOTE: Only access by authorized users.
+These routes include:
 
-- `/additem`: Adds an item to the cart.
-- `/cartItem`: Retrieves the items in the cart.
-- `/updateQuantity/:id`: Updates the quantity of a cart item.
-- `/deleteItem/:id`: Deletes an item from the cart.
+- `/cart/additem`: Adds an item to the cart.
+- `/cart/cartItem`: Retrieves the items in the cart.
+- `/cart/updateQuantity/:id`: Updates the quantity of a cart item.
+- `/cart/deleteItem/:id`: Deletes an item from the cart.
 
 Authentication using the JWT middleware (`auth.js`) is required to access these routes. Cart-related operations, such as adding, retrieving, updating, and deleting items, are handled in these routes.
 
@@ -54,17 +56,20 @@ Authentication using the JWT middleware (`auth.js`) is required to access these 
 
 The `cateRoute.js` file defines routes for managing product categories. Specifically, it includes:
 
-- `/listing`: Adds a new category if it doesn't already exist.
+- `/cart/listing`: Adds a new category if it doesn't already exist.
 
 This route allows users to add new categories, ensuring that duplicates are not created in the database.
 
 ## Routes: Order Management (`orderRoute.js`)
 
-The `orderRoute.js` file defines routes related to order management. These routes include:
+The `orderRoute.js` file defines routes related to order management. 
+NOTE: Only access by authorized users.
 
-- `/placeorder`: Places an order with items from the user's cart.
-- `/orderhistory`: Retrieves the order history of a particular user.
-- `/orderdetail/:id`: Retrieves details of a specific order by ID.
+These routes include:
+
+- `/order/placeorder`: Places an order with items from the user's cart.
+- `/order/orderhistory`: Retrieves the order history of a particular user.
+- `/order/orderdetail/:id`: Retrieves details of a specific order by ID.
 
 To access these routes, users must be authenticated using JWT authentication (`auth.js`). These routes facilitate the placement of orders, viewing order history, and fetching order details.
 
@@ -72,8 +77,8 @@ To access these routes, users must be authenticated using JWT authentication (`a
 
 The `productRoute.js` file defines routes for managing products. These routes include:
 
-- `/listing`: Adds a new product if it doesn't already exist.
-- `/details/:id`: Retrieves details of a specific product by ID.
+- `/product/listing`: Adds a new product if it doesn't already exist.
+- `/product/details/:id`: Retrieves details of a specific product by ID.
 
 These routes allow users to add new products and retrieve product details, ensuring that duplicate products are not created in the database.
 
@@ -81,8 +86,8 @@ These routes allow users to add new products and retrieve product details, ensur
 
 The `userRoute.js` file defines routes for user authentication, including registration and login. These routes include:
 
-- `/register`: Registers a new user.
-- `/login`: Authenticates a user based on email and password.
+- `/user/register`: Registers a new user.
+- `/user/login`: Authenticates a user based on email and password.
 
 Password hashing middleware (`hashing.js`) is used to securely hash passwords during registration. JWT tokens are generated during login to authenticate users for protected routes.
 
